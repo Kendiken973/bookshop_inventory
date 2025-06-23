@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📊 Sales Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        h2 { color: #333; }
+        a { text-decoration: none; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h2>📊 Sales Summary by Product</h2>
+    <a href="/">🏠 Back to Inventory</a>
+    <a href="/sales">🧾 View All Sales</a>
+    <a href="/sales-by-date">📅 View Sales by Date</a>
+
+    {% if summary %}
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Total Quantity Sold</th>
+            <th>Total Income (Ksh)</th>
+        </tr>
+        {% for row in summary %}
+        <tr>
+            <td>{{ row.product_name }}</td>
+            <td>{{ row.total_quantity }}</td>
+            <td>{{ "%.2f"|format(row.total_income) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No sales records available yet.</p>
+    {% endif %}
+</body>
+</html>

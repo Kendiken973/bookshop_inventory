@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+</head>
+<body>
+    <h1>Add New Product</h1>
+    <form method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <div class="mb-3">
+    <label for="category" class="form-label">Category:</label>
+    <select id="category" name="category" class="form-select" required onchange="toggleOtherInput(this.value)">
+        <option value="">Select Category</option>
+        <option value="Books">Books</option>
+        <option value="Pens">Pens</option>
+        <option value="Papers">Papers</option>
+        <option value="Files">Files</option>
+        <option value="Other">Other</option>
+    </select>
+</div>
+
+<div class="mb-3 d-none" id="other-category-div">
+    <label for="other_category" class="form-label">Enter Custom Category:</label>
+    <input type="text" id="other_category" name="other_category" class="form-control">
+</div>
+
+<script>
+function toggleOtherInput(value) {
+    const otherDiv = document.getElementById('other-category-div');
+    if (value === 'Other') {
+        otherDiv.classList.remove('d-none');
+        document.getElementById('other_category').required = true;
+    } else {
+        otherDiv.classList.add('d-none');
+        document.getElementById('other_category').required = false;
+    }
+}
+</script>
+
+        <label>Price (Ksh):</label><br>
+        <input type="number" step="0.01" name="price" required><br><br>
+
+        <label>Stock Quantity:</label><br>
+        <input type="number" name="stock" required><br><br>
+
+        <label>Brand:</label><br>
+        <input type="text" name="brand"required><br><br>
+
+        <button type="submit">Add Product</button>
+    </form>
+    <br>
+    <a href="/">← Back to Inventory</a>
+</body>
+</html>
+

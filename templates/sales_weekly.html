@@ -1,0 +1,17 @@
+<h2>📆 Weekly Sales Summary</h2>
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Year</th>
+    <th>Week #</th>
+    <th>Total Quantity</th>
+    <th>Total Income (Ksh)</th>
+  </tr>
+  {% for row in summary %}
+  <tr>
+    <td>{{ row.year }}</td>
+    <td>{{ row.week }}</td>
+    <td>{{ row.total_quantity }}</td>
+    <td>{{ "%.2f"|format(row.total_income) }}</td>
+  </tr>
+  {% endfor %}
+</table>

@@ -1,0 +1,27 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+env/
+
+# Database file (keeps sales, users, etc. private)
+*.db
+*.sqlite3
+
+# Environment variables (e.g. secret keys, passwords)
+.env
+
+# VS Code settings (optional)
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db

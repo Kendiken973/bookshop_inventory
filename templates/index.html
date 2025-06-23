@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📚 Bookshop Inventory</title>
+    <!-- Include Bootstrap for styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- ✅ Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/">📚 Bookshop</a>
+    <div class="d-flex gap-2">
+      <a class="btn btn-primary" href="/">🏠 Home</a>
+      <a class="btn btn-success" href="/add">➕ Add Product</a>
+      <a class="btn btn-warning" href="/out-of-stock">⚠️ Out of Stock</a>
+      <a class="btn btn-info" href="/sales">🧾 Sales</a>
+      <a class="btn btn-secondary" href="/dashboard">📊 Dashboard</a>
+      {% if session.get('user') %}
+        <a class="btn btn-dark" href="/logout">🔓 Logout</a>
+      {% else %}
+        <a class="btn btn-outline-primary" href="/login">🔐 Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Page Title -->
+<h1 class="text-center fw-bold mb-4">📚 Bookshop & Stationery Inventory</h1>
+
+<!-- ✅ Product Table -->
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Price (Ksh)</th>
+                <th>Stock</th>                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.brand }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>
+                    {% if product.stock > 0 %}
+                        <a href="/sell/{{ product.id }}" class="btn btn-success btn-sm">Sell</a>
+                        <a href="/edit/{{ product.id }}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                        {% if session.get('role') == 'admin' %}
+                        <a href="/delete/{{ product.id }}" class="btn btn-danger btn-sm ms-2">Delete</a>
+                        
+                        {% endif %}
+                    {% else %}
+                        <span class="text-danger">Out of Stock</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+

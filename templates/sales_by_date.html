@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📅 Daily Sales Summary</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h2>📅 Sales Summary by Day</h2>
+    <a href="/">🏠 Back to Inventory</a>
+
+    {% if summary %}
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Total Quantity Sold</th>
+            <th>Total Income (Ksh)</th>
+        </tr>
+        {% for row in summary %}
+        <tr>
+            <td>{{ row.sale_date }}</td>
+            <td>{{ row.total_quantity }}</td>
+            <td>{{ row.total_income }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No sales data available yet.</p>
+    {% endif %}
+</body>
+</html>
+
