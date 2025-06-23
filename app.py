@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import func, extract
 from collections import defaultdict
+from flask import session,redirect,url_for
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
@@ -68,8 +69,7 @@ class User(db.Model):
 
 @app.route('/')
 def home():
-    products = Product.query.all()
-    return render_template('index.html', products=products)
+    return redirect(url_for('login'))
 
 @app.route('/')
 @login_required
