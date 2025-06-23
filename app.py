@@ -68,14 +68,21 @@ class User(db.Model):
     role = db.Column(db.String(20), nullable=False, default='employee')  # either 'admin' or 'employee'
 
 @app.route('/')
-def home():
-    return redirect(url_for('login'))
-
-@app.route('/')
 @login_required
-def index():
+def home():
     products = Product.query.all()
-    return render_template('index.html', products=products)
+    return render_template('home.html', products=products)
+
+
+#@app.route('/')
+#def index():
+    #return render_template('index.html', year=datetime.now().year)
+
+#@app.route('/')
+#@login_required
+#def index():
+    #products = Product.query.all()
+   # return render_template('index.html', products=products)
 
 @app.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -94,12 +101,19 @@ def add_product():
             db.session.commit()
             flash('Stock updated for existing product.', 'info')
         else:
-            new_product = Product(name=name, category=category, brand=brand, price=price, stock=stock, sold=0)
+            new_product = Product(
+                name=name,
+                category=category,
+                brand=brand,
+                price=price,
+                stock=stock
+            )
             db.session.add(new_product)
             db.session.commit()
-            flash('New product added successfully.', 'inventory')
-        return redirect('/')
-    return render_template('add_product.html')
+            flash('New product added.', 'success')
+
+        return redirect(url_for('home'))  # ✅ This is correct redirect *after* adding
+    return render_template('add_product.html')  # ✅ Show form on GET
 
 @app.route('/sales-by-date')
 @login_required
@@ -258,7 +272,7 @@ def login():
         password = request.form['password']
 
         user = User.query.filter(
-            (User.username == email_or_username) | 
+            (User.username == email_or_username) |
             (User.email == email_or_username)
         ).first()
 
