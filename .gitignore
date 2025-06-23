@@ -8,7 +8,7 @@ venv/
 env/
 
 # Database file (keeps sales, users, etc. private)
-*.db
+instance/*.db
 *.sqlite3
 
 # Environment variables (e.g. secret keys, passwords)
