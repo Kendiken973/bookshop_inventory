@@ -57,15 +57,15 @@ class Sale(db.Model):
     total = db.Column(db.Float)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
-with app.app_context():
-    db.create_all()
-
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
     role = db.Column(db.String(20), nullable=False, default='employee')  # either 'admin' or 'employee'
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/home')
 @login_required
