@@ -346,16 +346,16 @@ def add_header(response):
 #with app.app_context():
     #db.create_all()
 
-@app.route('/create_db')
-def create_db():
-    db.create_all()
-    return "✅ PostgreSQL tables created!"
+#@app.route('/create_db')
+#def create_db():
+  #  db.create_all()
+   # return "✅ PostgreSQL tables created!"
 
-@app.route('/check-tables')
-def check_tables():
-    from sqlalchemy import inspect
-    inspector = inspect(db.engine)
-    return {'tables': inspector.get_table_names()}
+#@app.route('/check-tables')
+#def check_tables():
+    #from sqlalchemy import inspect
+    #inspector = inspect(db.engine)
+    #return {'tables': inspector.get_table_names()}
 
 
 if __name__ == '__main__':
