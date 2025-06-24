@@ -353,10 +353,10 @@ def check_tables():
 #with app.app_context():
     #db.create_all()
 
-#@app.route('/create_db')
-#def create_db():
-    #db.create_all()
-    #return "✅ PostgreSQL tables created!"
+@app.route('/create_db')
+def create_db():
+    db.create_all()
+    return "✅ PostgreSQL tables created!"
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0')
