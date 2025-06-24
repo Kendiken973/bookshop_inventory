@@ -28,6 +28,9 @@ mail = Mail(app)
 
 db = SQLAlchemy(app)
 
+with app.app_context():
+    db.create_all()
+
 # Login required decorator
 def login_required(f):
     @wraps(f)
