@@ -343,20 +343,13 @@ def add_header(response):
     response.headers['Expires'] = '0'
     return response
 
-@app.route('/check-tables')
-def check_tables():
-    from sqlalchemy import inspect
-    inspector = inspect(db.engine)
-    return {'tables': inspector.get_table_names()}
-
-
 #with app.app_context():
     #db.create_all()
 
-@app.route('/create_db')
-def create_db():
-    db.create_all()
-    return "✅ PostgreSQL tables created!"
+#@app.route('/create_db')
+#def create_db():
+    #db.create_all()
+    #return "✅ PostgreSQL tables created!"
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0')
