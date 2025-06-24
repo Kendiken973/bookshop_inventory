@@ -28,9 +28,6 @@ mail = Mail(app)
 
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
-
 # Login required decorator
 def login_required(f):
     @wraps(f)
@@ -339,7 +336,8 @@ def sales():
     sales = Sale.query.order_by(Sale.date.desc()).all()
     return render_template('sales.html', sales=sales)
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(debug=-False, host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0')
