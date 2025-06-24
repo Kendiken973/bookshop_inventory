@@ -343,6 +343,13 @@ def add_header(response):
     response.headers['Expires'] = '0'
     return response
 
+@app.route('/check-tables')
+def check_tables():
+    from sqlalchemy import inspect
+    inspector = inspect(db.engine)
+    return {'tables': inspector.get_table_names()}
+
+
 #with app.app_context():
     #db.create_all()
 
