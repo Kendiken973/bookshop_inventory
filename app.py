@@ -67,12 +67,11 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     role = db.Column(db.String(20), nullable=False, default='employee')  # either 'admin' or 'employee'
 
-@app.route('/')
+@app.route('/home')
 @login_required
 def home():
     products = Product.query.all()
     return render_template('home.html', products=products)
-
 
 #@app.route('/')
 #def index():
@@ -278,20 +277,26 @@ def login():
 
         if user and check_password_hash(user.password, password):
             session['user'] = user.username
-            session['role'] = user.role  # ✅ This is correct
-            flash('Login successful!', 'login')  # 🔁 Change 'success' to 'login'
+            session['role'] = user.role
+            flash('Login successful!', 'login')
             return redirect(url_for('home'))
         else:
             flash('Invalid credentials', 'login')
 
-    return render_template('login.html')
-
+    return render_template('login.html', year=datetime.now().year)
 
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     flash('Logged out successfully', 'info')
     return redirect('/login')
+
+@app.route('/')
+def index():
+    if 'user' in session:
+        return redirect(url_for('home'))  # Redirect logged-in users to /home
+    year = datetime.now().year
+    return render_template('index.html', year=year)
 
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
@@ -334,5 +339,4 @@ def sales():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=False, host='0.0.0.0')
-
+    app.run(debug=-False, host='0.0.0.0')
