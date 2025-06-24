@@ -336,6 +336,13 @@ def sales():
     sales = Sale.query.order_by(Sale.date.desc()).all()
     return render_template('sales.html', sales=sales)
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 with app.app_context():
     db.create_all()
 
