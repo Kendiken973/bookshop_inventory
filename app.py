@@ -64,8 +64,8 @@ class User(db.Model):
     password = db.Column(db.String(200), nullable=False)
     role = db.Column(db.String(20), nullable=False, default='employee')  # either 'admin' or 'employee'
 
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+   # db.create_all()
 
 @app.route('/home')
 @login_required
