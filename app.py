@@ -8,10 +8,14 @@ from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 from flask import Flask
+import os 
 
 app = Flask(__name__)
 app.secret_key = 'yoursecretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bookshop.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    'DATABASE_URL',
+    'sqlite:///bookshop.db'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 from itsdangerous import URLSafeTimedSerializer
 
